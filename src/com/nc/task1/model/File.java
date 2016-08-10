@@ -1,24 +1,26 @@
 package com.nc.task1.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by ilpr0816 on 09.08.2016.
- * Класс файла
+ * Класс файла или папки
  */
 public class File {
     /**
      * id записи в БД
      */
-    private int id;
+    protected int id;
 
     /**
      * Название файла
      */
-    private String name;
+    protected String name;
 
     /**
      * Родительская папка
      */
-    private Folder parentFolder;
+    protected File parentFolder;
 
     /**
      * Конструктор для файла
@@ -26,7 +28,7 @@ public class File {
      * @param name - название файла
      * @param parentFolder - родительская папка
      */
-    File(int id, String name, Folder parentFolder) {
+    File(int id, String name, File parentFolder) {
         this.id = id;
         this.name = name;
         this.parentFolder = parentFolder;
@@ -37,57 +39,57 @@ public class File {
      * @param name - название файла
      * @param parentFolder - родительская папка
      */
-    File(String name, Folder parentFolder) {
+    public File(String name, File parentFolder) {
         this.id = 0;
         this.name = name;
         this.parentFolder = parentFolder;
     }
 
     /**
-     *
-     * @return
+     * Геттер для id записи в БД
+     * @return id записи в БД
      */
     public int getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
+     * Сеттер для id записи в БД
+     * @param id id записи в БД
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     *
-     * @return
+     * Геттер для названия файла
+     * @return название файла
      */
     public String getName() {
         return name;
     }
 
     /**
-     *
-     * @param name
+     * Сеттер для названия файла
+     * @param name - название файла
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     *
-     * @return
+     * Геттер для родительской папки
+     * @return родительская папка
      */
-    public Folder getParentFolder() {
+    public File getParentFolder() {
         return parentFolder;
     }
 
     /**
-     *
-     * @param parentFolder
+     * Сеттер для родительской папки
+     * @param parentFolder - родительская папка
      */
-    public void setParentFolder(Folder parentFolder) {
+    public void setParentFolder(File parentFolder) {
         this.parentFolder = parentFolder;
     }
 }

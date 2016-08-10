@@ -16,20 +16,21 @@ public class FileSystemCommandScan implements FileSystemCommand {
      * Конструктор
      * @param path - путь к каталогу
      */
-    FileSystemCommandScan(String path) {
+    public FileSystemCommandScan(String path) {
         this.path = path;
     }
+
     /**
      * Валидация команды на стороне файловой системы
      */
     public void validate() {
-        System.out.println("validate scan path");
+        System.out.println("validate scan in FS");
     }
 
     /**
      * Выполнение команды на стороне файловой системы
      */
     public void execute() {
-        System.out.println("execute scan files");
+        System.out.println("execute scan in FS");
     }
 }

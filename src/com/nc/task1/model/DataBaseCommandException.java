@@ -6,24 +6,9 @@ package com.nc.task1.model;
  */
 public class DataBaseCommandException extends Exception {
     /**
-     * Папка из команды
-     */
-    private Folder folder;
-
-    /**
      * Файл из команды
      */
     private File file;
-
-    /**
-     * Конструктор для команды над папкой
-     * @param message - сообщение об ошибке
-     * @param folder - папка
-     */
-    DataBaseCommandException(String message, Folder folder) {
-        super(message);
-        this.folder = folder;
-    }
 
     /**
      * Конструктор для команды над файлом
@@ -33,22 +18,6 @@ public class DataBaseCommandException extends Exception {
     DataBaseCommandException(String message, File file) {
         super(message);
         this.file = file;
-    }
-
-    /**
-     * Геттер для папки
-     * @return папка
-     */
-    public Folder getFolder() {
-        return folder;
-    }
-
-    /**
-     * Сеттер для папки
-     * @param folder - папка
-     */
-    public void setFolder(Folder folder) {
-        this.folder = folder;
     }
 
     /**

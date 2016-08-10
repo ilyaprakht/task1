@@ -22,7 +22,7 @@ public class FileSystemCommandCopy implements FileSystemCommand {
      * @param pathFrom - путь к файлу, откуда нужно скопировать
      * @param pathTo - путь к файлу, куда нужно скопировать
      */
-    FileSystemCommandCopy(String pathFrom, String pathTo) {
+    public FileSystemCommandCopy(String pathFrom, String pathTo) {
         this.pathFrom = pathFrom;
         this.pathTo = pathTo;
     }
@@ -30,13 +30,13 @@ public class FileSystemCommandCopy implements FileSystemCommand {
      * Валидация команды на стороне файловой системы
      */
     public void validate() {
-        System.out.println("validate cp paths");
+        System.out.println("validate cp in FS");
     }
 
     /**
      * Выполнение команды на стороне файловой системы
      */
     public void execute() {
-        System.out.println("execute cp files");
+        System.out.println("execute cp in FS");
     }
 }

@@ -22,7 +22,7 @@ public class FileSystemCommandMove implements FileSystemCommand {
      * @param pathFrom - путь к файлу, откуда нужно перенести
      * @param pathTo - путь к файлу, куда нужно перенести
      */
-    FileSystemCommandMove(String pathFrom, String pathTo) {
+    public FileSystemCommandMove(String pathFrom, String pathTo) {
         this.pathFrom = pathFrom;
         this.pathTo = pathTo;
     }
@@ -30,13 +30,13 @@ public class FileSystemCommandMove implements FileSystemCommand {
      * Валидация команды на стороне файловой системы
      */
     public void validate() {
-        System.out.println("validate mv paths");
+        System.out.println("validate mv in FS");
     }
 
     /**
      * Выполнение команды на стороне файловой системы
      */
     public void execute() {
-        System.out.println("execute mv files");
+        System.out.println("execute mv in FS");
     }
 }

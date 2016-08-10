@@ -16,20 +16,20 @@ public class FileSystemCommandRemove implements FileSystemCommand {
      * Конструктор
      * @param path - путь к файлу, который нужно удалить
      */
-    FileSystemCommandRemove(String path) {
+    public FileSystemCommandRemove(String path) {
         this.path = path;
     }
     /**
      * Валидация команды на стороне файловой системы
      */
     public void validate() {
-        System.out.println("validate rm path");
+        System.out.println("validate rm in FS");
     }
 
     /**
      * Выполнение команды на стороне файловой системы
      */
     public void execute() {
-        System.out.println("execute rm files");
+        System.out.println("execute rm in FS");
     }
 }
