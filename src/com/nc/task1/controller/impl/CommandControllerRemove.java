@@ -27,6 +27,6 @@ public class CommandControllerRemove extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandRemove(path);
-        dataBaseCommand = new DataBaseCommandRemove(getFileByPath(path));
+        dataBaseCommand = new DataBaseCommandRemove(getFileByPath(path, null));
     }
 }

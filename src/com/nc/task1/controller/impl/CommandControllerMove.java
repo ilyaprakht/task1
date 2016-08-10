@@ -36,6 +36,6 @@ public class CommandControllerMove extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandMove(pathFrom, pathTo);
-        dataBaseCommand = new DataBaseCommandMove(getFileByPath(pathFrom), getFileByPath(pathTo));
+        dataBaseCommand = new DataBaseCommandMove(getFileByPath(pathFrom, null), getFileByPath(pathTo, null));
     }
 }

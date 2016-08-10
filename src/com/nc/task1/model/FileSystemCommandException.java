@@ -20,7 +20,7 @@ public class FileSystemCommandException extends Exception {
      * @param message - сообщение об ошибке
      * @param path - путь к файлу или каталогу
      */
-    FileSystemCommandException(String message, String path) {
+    public FileSystemCommandException(String message, String path) {
         super(message);
         this.path1 = path;
     }
@@ -31,7 +31,7 @@ public class FileSystemCommandException extends Exception {
      * @param path1 - путь 1 к файлу или каталогу
      * @param path2 - путь 2 к файлу или каталогу
      */
-    FileSystemCommandException(String message, String path1, String path2) {
+    public FileSystemCommandException(String message, String path1, String path2) {
         super(message);
         this.path1 = path1;
         this.path2 = path2;

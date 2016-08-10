@@ -35,6 +35,6 @@ public class CommandControllerCopy extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandCopy(pathFrom, pathTo);
-        dataBaseCommand = new DataBaseCommandCopy(getFileByPath(pathFrom), getFileByPath(pathTo));
+        dataBaseCommand = new DataBaseCommandCopy(getFileByPath(pathFrom, null), getFileByPath(pathTo, null));
     }
 }

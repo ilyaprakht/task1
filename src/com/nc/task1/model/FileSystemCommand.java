@@ -8,10 +8,12 @@ public interface FileSystemCommand {
     /**
      * Валидация команды на стороне файловой системы
      */
-    public void validate();
+    public void validate() throws FileSystemCommandException;
+
+    public void validateChild(String path) throws FileSystemCommandException;
 
     /**
      * Выполнение команды на стороне файловой системы
      */
-    public void execute();
+    public void execute() throws FileSystemCommandException;
 }

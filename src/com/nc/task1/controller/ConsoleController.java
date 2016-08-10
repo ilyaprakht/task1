@@ -4,6 +4,7 @@ import com.nc.task1.controller.impl.CommandControllerCopy;
 import com.nc.task1.controller.impl.CommandControllerMove;
 import com.nc.task1.controller.impl.CommandControllerRemove;
 import com.nc.task1.controller.impl.CommandControllerScan;
+import com.nc.task1.model.FileSystemCommandException;
 
 import java.util.Scanner;
 
@@ -53,14 +54,17 @@ public class ConsoleController {
                         System.out.println("unknown command. please, try again");
                         break;
                 }
+
+                // Если контроллер определен, выполняем команду
+                if (controller != null) {
+                    controller.executeCommand();
+                }
             }
             catch (ArrayIndexOutOfBoundsException e) { //Некорректный формат команды, указано неверное количество литералов
                 System.out.println("incorrect command format. please, try again");
             }
-
-            // Если контроллер определен, выполняем команду
-            if (controller != null) {
-                controller.executeCommand();
+            catch (FileSystemCommandException e) { //Ошибка файловой системы
+                System.out.println("file system error: " + e.getMessage() + " " + e.getPath1() + (e.getPath2() == null ? "" : " " + e.getPath2()));
             }
         } while (!"exit".equals(commandLine)); // при вводе exit - выход из программы
     }

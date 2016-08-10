@@ -1,6 +1,9 @@
 package com.nc.task1.model.impl;
 
 import com.nc.task1.model.FileSystemCommand;
+import com.nc.task1.model.FileSystemCommandException;
+
+import java.io.IOException;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -22,14 +25,49 @@ public class FileSystemCommandRemove implements FileSystemCommand {
     /**
      * Валидация команды на стороне файловой системы
      */
-    public void validate() {
+    public void validate() throws FileSystemCommandException {
         System.out.println("validate rm in FS");
+
+        java.io.File hFile = new java.io.File(path);
+        // Проверяем что такой файл есть в ФС
+        if (!hFile.exists()) {
+            throw new FileSystemCommandException("Указанный файл не найден", path);
+        }
+
+        //Делаем рекурсивную валидацию от указанного файла и по всем его вложениям
+        validateChild(path);
+    }
+
+    @Override
+    public void validateChild(String path) throws FileSystemCommandException {
+        java.io.File hFile = new java.io.File(path);
+
+        // Проверяем, что есть доступ на чтение
+        if (!hFile.canWrite()) {
+            throw new FileSystemCommandException("Невозможно удалить файл", path);
+        }
+
+        // Если указана директория, то проверяем все ее вложенные файлы
+        if (hFile.isDirectory()) {
+            for (java.io.File childFile : hFile.listFiles()) { // рекурсивно пробегаемся по всем ее файлам и поддиректориям
+                validateChild(childFile.getAbsolutePath());
+            }
+        }
     }
 
     /**
      * Выполнение команды на стороне файловой системы
      */
-    public void execute() {
+    public void execute() throws FileSystemCommandException {
         System.out.println("execute rm in FS");
+
+        // Удаляем файл
+        java.io.File hFile = new java.io.File(path);
+        try {
+            hFile.delete();
+        }
+        catch (Exception e) {
+            throw new FileSystemCommandException("Невозможно удалить файл", path);
+        }
     }
 }

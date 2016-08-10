@@ -28,6 +28,6 @@ public class CommandControllerScan extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandScan(path);
-        dataBaseCommand = new DataBaseCommandScan(getFileByPath(path));
+        dataBaseCommand = new DataBaseCommandScan(getFileByPath(path, null));
     }
 }
