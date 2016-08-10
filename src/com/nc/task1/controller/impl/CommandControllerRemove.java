@@ -1,6 +1,7 @@
 package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
+import com.nc.task1.model.File;
 import com.nc.task1.model.impl.DataBaseCommandRemove;
 import com.nc.task1.model.impl.FileSystemCommandRemove;
 
@@ -27,6 +28,8 @@ public class CommandControllerRemove extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandRemove(path);
-        dataBaseCommand = new DataBaseCommandRemove(getFileByPath(path, null));
+
+        File file = getFileByPath(path, null);
+        dataBaseCommand = new DataBaseCommandRemove(file, dao);
     }
 }

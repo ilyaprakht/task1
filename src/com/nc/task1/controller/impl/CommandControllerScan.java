@@ -2,8 +2,10 @@ package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
+import com.nc.task1.model.FileDAO;
 import com.nc.task1.model.impl.DataBaseCommandScan;
 import com.nc.task1.model.impl.FileSystemCommandScan;
+import com.nc.task1.model.impl.JDBCMysqlHandler;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
@@ -28,6 +30,8 @@ public class CommandControllerScan extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandScan(path);
-        dataBaseCommand = new DataBaseCommandScan(getFileByPath(path, null));
+
+        File file = getFileByPath(path, null);
+        dataBaseCommand = new DataBaseCommandScan(file, dao);
     }
 }

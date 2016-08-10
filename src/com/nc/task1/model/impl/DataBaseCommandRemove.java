@@ -2,6 +2,7 @@ package com.nc.task1.model.impl;
 
 import com.nc.task1.model.DataBaseCommand;
 import com.nc.task1.model.File;
+import com.nc.task1.model.FileDAO;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -14,11 +15,17 @@ public class DataBaseCommandRemove implements DataBaseCommand {
     private File file;
 
     /**
+     * Объект DAO доступа к БД
+     */
+    private FileDAO fileDAO;
+
+    /**
      * Конструктор
      * @param file - объект файла или папки
      */
-    public DataBaseCommandRemove(File file) {
+    public DataBaseCommandRemove(File file, FileDAO fileDAO) {
         this.file = file;
+        this.fileDAO = fileDAO;
     }
 
     /**

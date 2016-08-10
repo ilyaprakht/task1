@@ -1,8 +1,11 @@
 package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
+import com.nc.task1.model.File;
+import com.nc.task1.model.FileDAO;
 import com.nc.task1.model.impl.DataBaseCommandCopy;
 import com.nc.task1.model.impl.FileSystemCommandCopy;
+import com.nc.task1.model.impl.JDBCMysqlHandler;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
@@ -35,6 +38,9 @@ public class CommandControllerCopy extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandCopy(pathFrom, pathTo);
-        dataBaseCommand = new DataBaseCommandCopy(getFileByPath(pathFrom, null), getFileByPath(pathTo, null));
+
+        File fileFrom = getFileByPath(pathFrom, null);
+        File fileTo = getFileByPath(pathTo, null);
+        dataBaseCommand = new DataBaseCommandCopy(fileFrom, fileTo, dao);
     }
 }

@@ -1,6 +1,7 @@
 package com.nc.task1.controller;
 
 import com.nc.task1.model.*;
+import com.nc.task1.model.impl.JDBCMysqlHandler;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
@@ -18,11 +19,24 @@ public abstract class CommandController {
     protected DataBaseCommand dataBaseCommand;
 
     /**
+     * Объект DAO доступа к БД
+     */
+    protected FileDAO dao;
+
+    /**
      * Основной метод выполнения команды
      */
     public void executeCommand() throws FileSystemCommandException {
+        // Инициализация конкретной реализации интерфейса FileDAO
+        dao = new JDBCMysqlHandler();
+
+        // Инициализация конкретных обработчиков команд
         FactoryMethodInitCommands();
+
+        // Выполнение команды на стороне ФС
         executeFileSystemCommand();
+
+        // Выполнение команды на стороне БД
         executeDataBaseCommand();
     }
 

@@ -1,6 +1,7 @@
 package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
+import com.nc.task1.model.File;
 import com.nc.task1.model.impl.DataBaseCommandMove;
 import com.nc.task1.model.impl.DataBaseCommandScan;
 import com.nc.task1.model.impl.FileSystemCommandMove;
@@ -36,6 +37,9 @@ public class CommandControllerMove extends CommandController {
     @Override
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandMove(pathFrom, pathTo);
-        dataBaseCommand = new DataBaseCommandMove(getFileByPath(pathFrom, null), getFileByPath(pathTo, null));
+
+        File fileFrom = getFileByPath(pathFrom, null);
+        File fileTo = getFileByPath(pathTo, null);
+        dataBaseCommand = new DataBaseCommandMove(fileFrom, fileTo, dao);
     }
 }
