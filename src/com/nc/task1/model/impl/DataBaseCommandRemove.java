@@ -1,6 +1,7 @@
 package com.nc.task1.model.impl;
 
 import com.nc.task1.model.DataBaseCommand;
+import com.nc.task1.model.DataBaseCommandException;
 import com.nc.task1.model.File;
 import com.nc.task1.model.FileDAO;
 
@@ -17,22 +18,27 @@ public class DataBaseCommandRemove implements DataBaseCommand {
     /**
      * Объект DAO доступа к БД
      */
-    private FileDAO fileDAO;
+    private FileDAO dao;
 
     /**
      * Конструктор
      * @param file - объект файла или папки
      */
-    public DataBaseCommandRemove(File file, FileDAO fileDAO) {
+    public DataBaseCommandRemove(File file, FileDAO dao) {
         this.file = file;
-        this.fileDAO = fileDAO;
+        this.dao = dao;
     }
 
     /**
      * Валидация команды на стороне базы данных
      */
-    public void validate() {
+    public void validate() throws DataBaseCommandException {
         System.out.println("validate rm in DB");
+
+        // Проверяем, что файл есть в списке сканированных в БД
+        if (!dao.existFile(file)) {
+            throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", file);
+        }
     }
 
     /**
@@ -40,5 +46,8 @@ public class DataBaseCommandRemove implements DataBaseCommand {
      */
     public void execute() {
         System.out.println("execute rm in DB");
+
+        // Удаляем файл из БД
+        dao.delete(file);
     }
 }

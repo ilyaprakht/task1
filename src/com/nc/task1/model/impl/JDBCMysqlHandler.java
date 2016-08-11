@@ -8,6 +8,8 @@ import com.nc.task1.model.FileDAO;
  * Реализация интерфейса FileDAO для подключения к Mysql через jdbc
  */
 public class JDBCMysqlHandler implements FileDAO {
+
+
     /**
      * Очистка содержимого всей БД
      */
@@ -22,8 +24,8 @@ public class JDBCMysqlHandler implements FileDAO {
      * @return обновленный объект файла
      */
     @Override
-    public File update(File file) {
-        return null;
+    public void update(File file) {
+
     }
 
     /**
@@ -32,8 +34,8 @@ public class JDBCMysqlHandler implements FileDAO {
      * @return обновленный объект файла
      */
     @Override
-    public File create(File file) {
-        return null;
+    public void create(File file) {
+
     }
 
     /**
@@ -54,6 +56,15 @@ public class JDBCMysqlHandler implements FileDAO {
     @Override
     public File getFile(String name) {
         return null;
+    }
+
+    /**
+     * Проверка, что файл есть в БД
+     * @param file - экземпляр класса File
+     * @return результат проверки
+     */
+    public boolean existFile(File file) {
+        return true;
     }
 
     /**

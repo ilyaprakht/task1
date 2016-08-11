@@ -8,7 +8,7 @@ public interface DataBaseCommand {
     /**
      * Валидация команды на стороне базы данных
      */
-    public void validate();
+    public void validate() throws DataBaseCommandException;
 
     /**
      * Выполнение команды на стороне базы данных

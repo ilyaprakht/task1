@@ -1,8 +1,6 @@
 package com.nc.task1.model.impl;
 
-import com.nc.task1.model.DataBaseCommand;
-import com.nc.task1.model.File;
-import com.nc.task1.model.FileDAO;
+import com.nc.task1.model.*;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -22,24 +20,39 @@ public class DataBaseCommandCopy implements DataBaseCommand {
     /**
      * Объект DAO доступа к БД
      */
-    private FileDAO fileDAO;
+    private FileDAO dao;
 
     /**
      * Конструктор
      * @param fileFrom - объект файла или папки, откуда выполняется копирование
      * @param fileTo - объект файла или папки, куда выполняется копирование
      */
-    public DataBaseCommandCopy(File fileFrom, File fileTo, FileDAO fileDAO) {
+    public DataBaseCommandCopy(File fileFrom, File fileTo, FileDAO dao) {
         this.fileFrom = fileFrom;
         this.fileTo = fileTo;
-        this.fileDAO = fileDAO;
+        this.dao = dao;
     }
 
     /**
      * Валидация команды на стороне базы данных
      */
-    public void validate() {
+    public void validate() throws DataBaseCommandException {
         System.out.println("validate cp in DB");
+
+        // Проверяем, что файл, откуда выполняется копирование, есть в списке сканированных в БД
+        if (!dao.existFile(fileFrom)) {
+            throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", fileFrom);
+        }
+
+        // Проверяем, что родительсий каталог для файла, куда выполняется копирование, есть в списке сканированных в БД
+        java.io.File hFileTo = new java.io.File(fileTo.getName());
+        File parentFile = dao.getFile(hFileTo.getParent());
+        if (parentFile == null) {
+            throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", parentFile);
+        }
+
+        // Сохраняем родительскую папку для файла, куда выполняется копирование
+        fileTo.setParentFolder(parentFile);
     }
 
     /**
@@ -47,5 +60,19 @@ public class DataBaseCommandCopy implements DataBaseCommand {
      */
     public void execute() {
         System.out.println("execute cp in DB");
+
+        // Записываем файлы в БД рекурсивно
+        createFilesRec(fileTo);
+    }
+
+    private void createFilesRec(File file) {
+        // Записываем файл
+        dao.create(file);
+        // Если файл является папкой, то рекурсивно пробегаемся по всем его файлам и подпапкам
+        if (file instanceof Folder) {
+            for (File childFile : ((Folder) file).getListChildFiles()) {
+                createFilesRec(childFile);
+            }
+        }
     }
 }

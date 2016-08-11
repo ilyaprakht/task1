@@ -15,7 +15,7 @@ public class DataBaseCommandException extends Exception {
      * @param message - сообщение об ошибке
      * @param file - файл
      */
-    DataBaseCommandException(String message, File file) {
+    public DataBaseCommandException(String message, File file) {
         super(message);
         this.file = file;
     }

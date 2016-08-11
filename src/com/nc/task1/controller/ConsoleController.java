@@ -4,6 +4,7 @@ import com.nc.task1.controller.impl.CommandControllerCopy;
 import com.nc.task1.controller.impl.CommandControllerMove;
 import com.nc.task1.controller.impl.CommandControllerRemove;
 import com.nc.task1.controller.impl.CommandControllerScan;
+import com.nc.task1.model.DataBaseCommandException;
 import com.nc.task1.model.FileSystemCommandException;
 
 import java.util.Scanner;
@@ -65,6 +66,9 @@ public class ConsoleController {
             }
             catch (FileSystemCommandException e) { //Ошибка файловой системы
                 System.out.println("file system error: " + e.getMessage() + " " + e.getPath1() + (e.getPath2() == null ? "" : " " + e.getPath2()));
+            }
+            catch (DataBaseCommandException e) { // Ошибка БД
+                System.out.println("database error: " + e.getMessage() + " " + e.getFile().getName());
             }
         } while (!"exit".equals(commandLine)); // при вводе exit - выход из программы
     }

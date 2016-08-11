@@ -26,7 +26,7 @@ public abstract class CommandController {
     /**
      * Основной метод выполнения команды
      */
-    public void executeCommand() throws FileSystemCommandException {
+    public void executeCommand() throws FileSystemCommandException, DataBaseCommandException {
         // Инициализация конкретной реализации интерфейса FileDAO
         dao = new JDBCMysqlHandler();
 
@@ -51,7 +51,7 @@ public abstract class CommandController {
     /**
      * Выполнение команды на стороне БД
      */
-    private void executeDataBaseCommand() {
+    private void executeDataBaseCommand() throws DataBaseCommandException {
         dataBaseCommand.validate();
         dataBaseCommand.execute();
     }

@@ -16,14 +16,14 @@ public interface FileDAO {
      * @param file - экземпляр класса File
      * @return обновленный объект файла
      */
-    public File update(File file);
+    public void update(File file);
 
     /**
      * Добавление нового файла в БД
      * @param file - экземпляр класса File
      * @return обновленный объект файла
      */
-    public File create(File file);
+    public void create(File file);
 
     /**
      * Получение файла по id в БД
@@ -38,6 +38,13 @@ public interface FileDAO {
      * @return экземпляр класса File
      */
     public File getFile(String name);
+
+    /**
+     * Проверка, что файл есть в БД
+     * @param file - экземпляр класса File
+     * @return результат проверки
+     */
+    public boolean existFile(File file);
 
     /**
      * Удаление файла
