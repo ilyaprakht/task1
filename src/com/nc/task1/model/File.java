@@ -1,7 +1,5 @@
 package com.nc.task1.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by ilpr0816 on 09.08.2016.
  * Класс файла или папки

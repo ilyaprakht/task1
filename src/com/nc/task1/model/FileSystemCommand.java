@@ -7,13 +7,20 @@ package com.nc.task1.model;
 public interface FileSystemCommand {
     /**
      * Валидация команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
     public void validate() throws FileSystemCommandException;
 
+    /**
+     * Валидация вложенного файла или папки
+     * @param path - путь к файлу или папке
+     * @throws FileSystemCommandException
+     */
     public void validateChild(String path) throws FileSystemCommandException;
 
     /**
      * Выполнение команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
     public void execute() throws FileSystemCommandException;
 }

@@ -35,7 +35,9 @@ public class DataBaseCommandCopy implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void validate() throws DataBaseCommandException {
         System.out.println("validate cp in DB");
 
@@ -56,7 +58,9 @@ public class DataBaseCommandCopy implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void execute() throws DataBaseCommandException {
         System.out.println("execute cp in DB");
 
@@ -64,6 +68,11 @@ public class DataBaseCommandCopy implements DataBaseCommand {
         createFilesRec(fileTo);
     }
 
+    /**
+     * Рекурсивное создание файлов
+     * @param file - экземпляр файла
+     * @throws DataBaseCommandException
+     */
     private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
         dao.create(file);

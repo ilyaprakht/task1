@@ -25,6 +25,8 @@ public abstract class CommandController {
 
     /**
      * Основной метод выполнения команды
+     * @throws FileSystemCommandException
+     * @throws DataBaseCommandException
      */
     public void executeCommand() throws FileSystemCommandException, DataBaseCommandException {
         // Инициализация конкретной реализации интерфейса FileDAO
@@ -42,6 +44,7 @@ public abstract class CommandController {
 
     /**
      * Выполнение команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
     private void executeFileSystemCommand() throws FileSystemCommandException {
         fileSystemCommand.validate();
@@ -50,6 +53,7 @@ public abstract class CommandController {
 
     /**
      * Выполнение команды на стороне БД
+     * @throws DataBaseCommandException
      */
     private void executeDataBaseCommand() throws DataBaseCommandException {
         dataBaseCommand.validate();

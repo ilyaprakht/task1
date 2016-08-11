@@ -22,9 +22,12 @@ public class FileSystemCommandRemove implements FileSystemCommand {
     public FileSystemCommandRemove(String path) {
         this.path = path;
     }
+
     /**
      * Валидация команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void validate() throws FileSystemCommandException {
         System.out.println("validate rm in FS");
 
@@ -38,6 +41,11 @@ public class FileSystemCommandRemove implements FileSystemCommand {
         validateChild(path);
     }
 
+    /**
+     * Валидация вложенного файла или папки
+     * @param path - путь к файлу или папке
+     * @throws FileSystemCommandException
+     */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);
@@ -57,7 +65,9 @@ public class FileSystemCommandRemove implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void execute() throws FileSystemCommandException {
         System.out.println("execute rm in FS");
 

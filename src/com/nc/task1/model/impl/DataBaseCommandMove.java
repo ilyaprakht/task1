@@ -35,7 +35,9 @@ public class DataBaseCommandMove implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void validate() throws DataBaseCommandException {
         System.out.println("validate mv in DB");
 
@@ -56,7 +58,9 @@ public class DataBaseCommandMove implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void execute() throws DataBaseCommandException {
         System.out.println("execute mv in DB");
 
@@ -67,6 +71,11 @@ public class DataBaseCommandMove implements DataBaseCommand {
         dao.delete(fileFrom);
     }
 
+    /**
+     * Рекурсивное создание файлов
+     * @param file - экземпляр файла
+     * @throws DataBaseCommandException
+     */
     private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
         dao.create(file);

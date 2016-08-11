@@ -4,11 +4,11 @@ import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
 import com.nc.task1.model.Folder;
 import com.nc.task1.model.impl.DataBaseCommandMove;
-import com.nc.task1.model.impl.DataBaseCommandScan;
 import com.nc.task1.model.impl.FileSystemCommandMove;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
+ * Реализация класса контроллера для комнады scan
  */
 public class CommandControllerMove extends CommandController {
 

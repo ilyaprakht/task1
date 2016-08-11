@@ -1,7 +1,5 @@
 package com.nc.task1.model;
 
-import java.sql.SQLException;
-
 /**
  * Created by ilpr0816 on 10.08.2016.
  * Интерфейс для реализации DAO-доступа к БД файлов
@@ -10,13 +8,14 @@ public interface FileDAO {
 
     /**
      * Очистка содержимого всей БД
+     * @throws DataBaseCommandException
      */
     public void truncateAll() throws DataBaseCommandException;
 
     /**
      * Добавление нового файла в БД
      * @param file - экземпляр класса File
-     * @return обновленный объект файла
+     * @throws DataBaseCommandException
      */
     public void create(File file) throws DataBaseCommandException;
 
@@ -24,6 +23,7 @@ public interface FileDAO {
      * Получение файла по id в БД
      * @param id - id из БД
      * @return экземпляр класса File
+     * @throws DataBaseCommandException
      */
     public File getFile(int id) throws DataBaseCommandException;
 
@@ -31,6 +31,7 @@ public interface FileDAO {
      * Получение файла по названию
      * @param name - абсолютный путь к файлу
      * @return экземпляр класса File
+     * @throws DataBaseCommandException
      */
     public File getFile(String name) throws DataBaseCommandException;
 
@@ -38,12 +39,14 @@ public interface FileDAO {
      * Проверка, что файл есть в БД
      * @param file - экземпляр класса File
      * @return результат проверки
+     * @throws DataBaseCommandException
      */
     public boolean existFile(File file) throws DataBaseCommandException;
 
     /**
      * Удаление файла
      * @param file - экземпляр класса File
+     * @throws DataBaseCommandException
      */
     public void delete(File file) throws DataBaseCommandException;
 }

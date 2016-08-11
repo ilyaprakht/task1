@@ -2,14 +2,13 @@ package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
-import com.nc.task1.model.FileDAO;
 import com.nc.task1.model.Folder;
 import com.nc.task1.model.impl.DataBaseCommandCopy;
 import com.nc.task1.model.impl.FileSystemCommandCopy;
-import com.nc.task1.model.impl.JDBCMysqlHandler;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
+ * Реализация класса контроллера для комнады cp
  */
 public class CommandControllerCopy extends CommandController {
 

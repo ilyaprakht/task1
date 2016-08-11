@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
+ * Расширение класса File для папок
  */
 public class Folder extends File {
     /**

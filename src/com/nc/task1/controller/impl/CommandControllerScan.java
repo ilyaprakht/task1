@@ -2,13 +2,12 @@ package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
-import com.nc.task1.model.FileDAO;
 import com.nc.task1.model.impl.DataBaseCommandScan;
 import com.nc.task1.model.impl.FileSystemCommandScan;
-import com.nc.task1.model.impl.JDBCMysqlHandler;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
+ * Реализация класса контроллера для комнады scan
  */
 public class CommandControllerScan extends CommandController {
     /**

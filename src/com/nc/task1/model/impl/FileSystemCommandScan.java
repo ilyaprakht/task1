@@ -23,7 +23,9 @@ public class FileSystemCommandScan implements FileSystemCommand {
 
     /**
      * Валидация команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void validate() throws FileSystemCommandException {
         System.out.println("validate scan in FS");
 
@@ -37,6 +39,11 @@ public class FileSystemCommandScan implements FileSystemCommand {
         validateChild(path);
     }
 
+    /**
+     * Валидация вложенного файла или папки
+     * @param path - путь к файлу или папке
+     * @throws FileSystemCommandException
+     */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);
@@ -56,7 +63,9 @@ public class FileSystemCommandScan implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void execute() throws FileSystemCommandException {
         System.out.println("execute scan in FS");
         // В текущей реализации никаких действий на стороне ФС при сканировании не выполняется

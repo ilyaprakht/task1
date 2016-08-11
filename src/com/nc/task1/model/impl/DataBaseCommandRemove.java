@@ -31,7 +31,9 @@ public class DataBaseCommandRemove implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void validate() throws DataBaseCommandException {
         System.out.println("validate rm in DB");
 
@@ -43,7 +45,9 @@ public class DataBaseCommandRemove implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void execute() throws DataBaseCommandException {
         System.out.println("execute rm in DB");
 

@@ -97,6 +97,7 @@ public class JDBCMysqlHandler implements FileDAO {
 
     /**
      * Очистка содержимого всей БД
+     * @throws DataBaseCommandException
      */
     @Override
     public void truncateAll() throws DataBaseCommandException {
@@ -113,6 +114,7 @@ public class JDBCMysqlHandler implements FileDAO {
      * Добавление нового файла в БД
      * @param file - экземпляр класса File
      * @return обновленный объект файла
+     * @throws DataBaseCommandException
      */
     @Override
     public void create(File file) throws DataBaseCommandException {
@@ -141,6 +143,7 @@ public class JDBCMysqlHandler implements FileDAO {
      * Получение файла по id в БД
      * @param id - id из БД
      * @return экземпляр класса File
+     * @throws DataBaseCommandException
      */
     @Override
     public File getFile(int id) throws DataBaseCommandException {
@@ -186,6 +189,7 @@ public class JDBCMysqlHandler implements FileDAO {
      * Получение файла по названию
      * @param name - абсолютный путь к файлу
      * @return экземпляр класса File
+     * @throws DataBaseCommandException
      */
     @Override
     public File getFile(String name) throws DataBaseCommandException {
@@ -231,7 +235,9 @@ public class JDBCMysqlHandler implements FileDAO {
      * Проверка, что файл есть в БД
      * @param file - экземпляр класса File
      * @return результат проверки
+     * @throws DataBaseCommandException
      */
+    @Override
     public boolean existFile(File file) throws DataBaseCommandException {
         // Формируем запрос в зависимости от типа файла
         String query;
@@ -255,6 +261,7 @@ public class JDBCMysqlHandler implements FileDAO {
     /**
      * Удаление файла
      * @param file - экземпляр класса File
+     * @throws DataBaseCommandException
      */
     @Override
     public void delete(File file) throws DataBaseCommandException {

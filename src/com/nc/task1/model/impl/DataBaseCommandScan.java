@@ -2,8 +2,6 @@ package com.nc.task1.model.impl;
 
 import com.nc.task1.model.*;
 
-import java.sql.SQLException;
-
 /**
  * Created by ilpr0816 on 09.08.2016.
  * Реализация интерфейса DataBaseCommand для команды scan
@@ -30,7 +28,9 @@ public class DataBaseCommandScan implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void validate() throws DataBaseCommandException {
         System.out.println("validate scan in DB");
         // В текущей реализации никакая валидация на стороне БД при сканировании не выполняется
@@ -38,7 +38,9 @@ public class DataBaseCommandScan implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
+     * @throws DataBaseCommandException
      */
+    @Override
     public void execute() throws DataBaseCommandException {
         System.out.println("execute scan in DB");
 
@@ -49,6 +51,11 @@ public class DataBaseCommandScan implements DataBaseCommand {
         createFilesRec(file);
     }
 
+    /**
+     * Рекурсивное создание файлов
+     * @param file - экземпляр файла
+     * @throws DataBaseCommandException
+     */
     private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
         dao.create(file);

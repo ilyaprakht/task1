@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -33,9 +32,12 @@ public class FileSystemCommandCopy implements FileSystemCommand {
         this.pathFrom = pathFrom;
         this.pathTo = pathTo;
     }
+
     /**
      * Валидация команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void validate() throws FileSystemCommandException {
         System.out.println("validate cp in FS");
 
@@ -71,6 +73,11 @@ public class FileSystemCommandCopy implements FileSystemCommand {
         }
     }
 
+    /**
+     * Валидация вложенного файла или папки
+     * @param path - путь к файлу или папке
+     * @throws FileSystemCommandException
+     */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);
@@ -90,7 +97,9 @@ public class FileSystemCommandCopy implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
+     * @throws FileSystemCommandException
      */
+    @Override
     public void execute() throws FileSystemCommandException {
         System.out.println("execute cp in FS");
 
