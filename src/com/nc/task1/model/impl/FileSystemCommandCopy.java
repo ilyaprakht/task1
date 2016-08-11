@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -96,7 +97,7 @@ public class FileSystemCommandCopy implements FileSystemCommand {
         java.io.File hFileFrom = new java.io.File(pathFrom);
         java.io.File hFileTo = new java.io.File(pathTo);
         try {
-            Files.copy(hFileFrom.toPath(), hFileTo.toPath(), REPLACE_EXISTING);
+            Files.copy(hFileFrom.toPath(), hFileTo.toPath(), ATOMIC_MOVE);
         } catch (IOException e) {
             throw new FileSystemCommandException("Невозможно скопировать файлы", pathFrom, pathTo);
         }

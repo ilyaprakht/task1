@@ -31,7 +31,7 @@ public class CommandControllerScan extends CommandController {
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandScan(path);
 
-        File file = getFileByPath(path, null);
+        File file = File.getFileByPath(path, null);
         dataBaseCommand = new DataBaseCommandScan(file, dao);
     }
 }

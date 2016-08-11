@@ -59,6 +59,7 @@ public class ConsoleController {
                 // Если контроллер определен, выполняем команду
                 if (controller != null) {
                     controller.executeCommand();
+                    System.out.println("command done");
                 }
             }
             catch (ArrayIndexOutOfBoundsException e) { //Некорректный формат команды, указано неверное количество литералов

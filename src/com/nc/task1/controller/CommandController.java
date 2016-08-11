@@ -60,26 +60,4 @@ public abstract class CommandController {
      * Фабричный метод создания конкретных экземпляров модели, выполняющих выбранную команду
      */
     protected abstract void FactoryMethodInitCommands();
-
-    /**
-     * Возвращает объект файла или папки по пути
-     * @param path - путь к файлу
-     * @return - объект соответствующего файла
-     */
-    protected File getFileByPath(String path, File parentFolder) {
-        java.io.File hFile = new java.io.File(path);
-        if (hFile.exists()) { // Проверяем что такой файл есть в ФС
-            if (hFile.isDirectory()) { // Если это директория, то рекурсивно пробегаемся по всем ее файлам и поддиректориям
-                Folder sFile = new Folder(path, parentFolder);
-                for (java.io.File childFile : hFile.listFiles()) { // рекурсивно пробегаемся по всем ее файлам и поддиректориям, добавляем в лист
-                    sFile.getListChildFiles().add(getFileByPath(childFile.getAbsolutePath(), sFile));
-                }
-                return sFile;
-            } else {
-                File sFile = new File(path, parentFolder);
-                return sFile;
-            }
-        }
-        return null; // если файл не найден, возвращаем null - для случаев перемещения и копирования, валидация будет дальше
-    }
 }

@@ -29,7 +29,7 @@ public class CommandControllerRemove extends CommandController {
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandRemove(path);
 
-        File file = getFileByPath(path, null);
+        File file = File.getFileByPath(path, null);
         dataBaseCommand = new DataBaseCommandRemove(file, dao);
     }
 }

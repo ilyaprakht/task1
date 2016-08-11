@@ -17,7 +17,7 @@ public class Folder extends File {
      * @param name - название файла
      * @param parentFolder - родительская папка
      */
-    Folder(int id, String name, File parentFolder) {
+    public Folder(int id, String name, File parentFolder) {
         super(id, name, parentFolder);
         listChildFiles = new ArrayList<File>();
     }

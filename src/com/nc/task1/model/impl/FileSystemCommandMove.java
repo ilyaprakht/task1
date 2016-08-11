@@ -6,6 +6,7 @@ import com.nc.task1.model.FileSystemCommandException;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
@@ -96,7 +97,7 @@ public class FileSystemCommandMove implements FileSystemCommand {
         java.io.File hFileFrom = new java.io.File(pathFrom);
         java.io.File hFileTo = new java.io.File(pathTo);
         try {
-            Files.move(hFileFrom.toPath(), hFileTo.toPath(), REPLACE_EXISTING);
+            Files.move(hFileFrom.toPath(), hFileTo.toPath(), ATOMIC_MOVE);
         } catch (IOException e) {
             throw new FileSystemCommandException("Невозможно перенести файлы", pathFrom, pathTo);
         }

@@ -38,8 +38,8 @@ public class CommandControllerMove extends CommandController {
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandMove(pathFrom, pathTo);
 
-        File fileFrom = getFileByPath(pathFrom, null);
-        File fileTo = getFileByPath(pathTo, null);
+        File fileFrom = File.getFileByPath(pathFrom, null);
+        File fileTo = File.getFileByPath(pathTo, null);
         dataBaseCommand = new DataBaseCommandMove(fileFrom, fileTo, dao);
     }
 }

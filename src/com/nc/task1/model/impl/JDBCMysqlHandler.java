@@ -5,6 +5,7 @@ import com.mysql.jdbc.Statement;
 import com.nc.task1.model.DataBaseCommandException;
 import com.nc.task1.model.File;
 import com.nc.task1.model.FileDAO;
+import com.nc.task1.model.Folder;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -86,6 +87,15 @@ public class JDBCMysqlHandler implements FileDAO {
     }
 
     /**
+     * Заменяет слеш на двойной слеш, так как в mysql это символ экранирования и при вставке одиночный слеш игнорируется
+     * @param s - входный строка
+     * @return - строка с заменой
+     */
+    private String replaceS(String s) {
+        return s.replace("\\", "\\\\");
+    }
+
+    /**
      * Очистка содержимого всей БД
      */
     @Override
@@ -100,23 +110,31 @@ public class JDBCMysqlHandler implements FileDAO {
     }
 
     /**
-     * Обновление атрибутов файла или папки
-     * @param file - экземпляр класса File
-     * @return обновленный объект файла
-     */
-    @Override
-    public void update(File file) {
-
-    }
-
-    /**
      * Добавление нового файла в БД
      * @param file - экземпляр класса File
      * @return обновленный объект файла
      */
     @Override
-    public void create(File file) {
+    public void create(File file) throws DataBaseCommandException {
+        // Проверяем, есть ли данный файл уже в БД
+        if (existFile(file)) { // Еслиф файл уже есть, то новый не добавляем
+            return;
+        }
 
+        // Определяем родительский каталог
+        File parentFile = file.getParentFolder();
+
+        if (file instanceof Folder) { // Если файл является папкой
+            // Делаем вставку в таблицу t_folder
+            String query = "insert into t_folder (name" + (parentFile != null ? ", link_folder": "") + ") values ('"
+                    + replaceS(file.getName()) + "'" + (parentFile != null ? ", (select t.id from t_folder t where t.name = '" + replaceS(parentFile.getName()) + "')" : "") + ")";
+            execute(query);
+        } else { // Если файл не является папкой
+            // Делаем вставку в таблицу t_file
+            String query = "insert into t_file (name" + (parentFile != null ? ", link_folder": "") + ") values ('"
+                    + replaceS(file.getName()) + "'" + (parentFile != null ? ", (select t.id from t_folder t where t.name = '" + replaceS(parentFile.getName()) + "')" : "") + ")";
+            execute(query);
+        }
     }
 
     /**
@@ -125,7 +143,42 @@ public class JDBCMysqlHandler implements FileDAO {
      * @return экземпляр класса File
      */
     @Override
-    public File getFile(int id) {
+    public File getFile(int id) throws DataBaseCommandException {
+        // Ищем файл в таблице t_file
+        // Формируем запрос
+        String query = "select f.id, f.name, f.link_folder from t_file f where f.id = " + id;
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new File(resultSet.getInt("id"), resultSet.getString("name"), getFile(resultSet.getInt("link_folder")));
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Ищем файл в таблице t_folder
+        // Формируем запрос
+        query = "select f.id, f.name, f.link_folder from t_folder f where f.id = " + id;
+
+        // Выполняем запрос
+        resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new Folder(resultSet.getInt("id"), resultSet.getString("name"), getFile(resultSet.getInt("link_folder")));
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Если файл не найден возвращаем null
         return null;
     }
 
@@ -135,7 +188,42 @@ public class JDBCMysqlHandler implements FileDAO {
      * @return экземпляр класса File
      */
     @Override
-    public File getFile(String name) {
+    public File getFile(String name) throws DataBaseCommandException {
+        // Ищем файл в таблице t_file
+        // Формируем запрос
+        String query = "select f.id, f.name, f.link_folder from t_file f where f.name = '" + replaceS(name) + "'";
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new File(resultSet.getInt("id"), resultSet.getString("name"), getFile(resultSet.getInt("link_folder")));
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Ищем файл в таблице t_folder
+        // Формируем запрос
+        query = "select f.id, f.name, f.link_folder from t_folder f where f.name = '" + replaceS(name) + "'";
+
+        // Выполняем запрос
+        resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new Folder(resultSet.getInt("id"), resultSet.getString("name"), getFile(resultSet.getInt("link_folder")));
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Если файл не найден возвращаем null
         return null;
     }
 
@@ -144,8 +232,24 @@ public class JDBCMysqlHandler implements FileDAO {
      * @param file - экземпляр класса File
      * @return результат проверки
      */
-    public boolean existFile(File file) {
-        return true;
+    public boolean existFile(File file) throws DataBaseCommandException {
+        // Формируем запрос в зависимости от типа файла
+        String query;
+        if (file instanceof Folder) { // Если файл является папкой
+            query = "select t.id from t_folder t where t.name = '" + replaceS(file.getName()) + "'";
+        } else { // Если файл не является папкой
+            query = "select t.id from t_file t where t.name = '" + replaceS(file.getName()) + "'";
+        }
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+        // Проверяем, есть ли в запросе результат
+        try {
+            return resultSet.next();
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
     }
 
     /**
@@ -153,16 +257,16 @@ public class JDBCMysqlHandler implements FileDAO {
      * @param file - экземпляр класса File
      */
     @Override
-    public void delete(File file) {
+    public void delete(File file) throws DataBaseCommandException {
+        // Формируем запрос в зависимости от типа файла
+        String query;
+        if (file instanceof Folder) { // Если файл является папкой
+            query = "delete from t_folder where name = '" + replaceS(file.getName()) + "'";
+        } else { // Если файл не является папкой
+            query = "delete from t_file where name = '" + replaceS(file.getName()) + "'";
+        }
 
-    }
-
-    /**
-     * Получение головного в иерархии файла
-     * @return экземпляр класса File
-     */
-    @Override
-    public File getHeadFile() {
-        return null;
+        // Выполняем единственный запрос, поскольку в БД настроено каскадное удаление
+        execute(query);
     }
 }

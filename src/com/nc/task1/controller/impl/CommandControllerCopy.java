@@ -39,8 +39,8 @@ public class CommandControllerCopy extends CommandController {
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandCopy(pathFrom, pathTo);
 
-        File fileFrom = getFileByPath(pathFrom, null);
-        File fileTo = getFileByPath(pathTo, null);
+        File fileFrom = File.getFileByPath(pathFrom, null);
+        File fileTo = File.getFileByPath(pathTo, null);
         dataBaseCommand = new DataBaseCommandCopy(fileFrom, fileTo, dao);
     }
 }

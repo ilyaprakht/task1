@@ -45,8 +45,7 @@ public class DataBaseCommandCopy implements DataBaseCommand {
         }
 
         // Проверяем, что родительсий каталог для файла, куда выполняется копирование, есть в списке сканированных в БД
-        java.io.File hFileTo = new java.io.File(fileTo.getName());
-        File parentFile = dao.getFile(hFileTo.getParent());
+        File parentFile = dao.getFile(File.getParentFolderPath(fileTo));
         if (parentFile == null) {
             throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", parentFile);
         }
@@ -65,7 +64,7 @@ public class DataBaseCommandCopy implements DataBaseCommand {
         createFilesRec(fileTo);
     }
 
-    private void createFilesRec(File file) {
+    private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
         dao.create(file);
         // Если файл является папкой, то рекурсивно пробегаемся по всем его файлам и подпапкам

@@ -3,7 +3,7 @@ package com.nc.task1.model.impl;
 import com.nc.task1.model.FileSystemCommand;
 import com.nc.task1.model.FileSystemCommandException;
 
-import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Created by ilpr0816 on 09.08.2016.
@@ -61,10 +61,21 @@ public class FileSystemCommandRemove implements FileSystemCommand {
     public void execute() throws FileSystemCommandException {
         System.out.println("execute rm in FS");
 
-        // Удаляем файл
+        // Удаляем рекурсивно файлы
+        deleteFilesRec(path);
+    }
+
+    private void deleteFilesRec(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);
         try {
-            hFile.delete();
+            // Если это директория, то рекурсивно пробегаемся по всем ее файлам и поддиректориям и удаляем их
+            if (hFile.isDirectory()) {
+                for (java.io.File childFile : hFile.listFiles()) {
+                    deleteFilesRec(childFile.getAbsolutePath());
+                }
+            }
+            // Удаляем сам файл
+            Files.delete(hFile.toPath());
         }
         catch (Exception e) {
             throw new FileSystemCommandException("Невозможно удалить файл", path);

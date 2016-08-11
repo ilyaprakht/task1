@@ -49,7 +49,7 @@ public class DataBaseCommandScan implements DataBaseCommand {
         createFilesRec(file);
     }
 
-    private void createFilesRec(File file) {
+    private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
         dao.create(file);
         // Если файл является папкой, то рекурсивно пробегаемся по всем его файлам и подпапкам
