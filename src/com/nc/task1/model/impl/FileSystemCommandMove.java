@@ -97,7 +97,7 @@ public class FileSystemCommandMove implements FileSystemCommand {
         java.io.File hFileFrom = new java.io.File(pathFrom);
         java.io.File hFileTo = new java.io.File(pathTo);
         try {
-            Files.move(hFileFrom.toPath(), hFileTo.toPath(), ATOMIC_MOVE);
+            Files.move(hFileFrom.toPath(), hFileTo.toPath(), REPLACE_EXISTING);
         } catch (IOException e) {
             throw new FileSystemCommandException("Невозможно перенести файлы", pathFrom, pathTo);
         }

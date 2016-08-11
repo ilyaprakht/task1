@@ -27,9 +27,13 @@ public class CommandControllerRemove extends CommandController {
      */
     @Override
     protected void FactoryMethodInitCommands() {
+        // Создаем обработчик команды в ФС
         fileSystemCommand = new FileSystemCommandRemove(path);
 
+        // Определяем объект файла
         File file = File.getFileByPath(path, null);
+
+        // Создаем обработчик команды в ФС
         dataBaseCommand = new DataBaseCommandRemove(file, dao);
     }
 }

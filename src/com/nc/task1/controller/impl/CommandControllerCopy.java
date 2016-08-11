@@ -3,6 +3,7 @@ package com.nc.task1.controller.impl;
 import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
 import com.nc.task1.model.FileDAO;
+import com.nc.task1.model.Folder;
 import com.nc.task1.model.impl.DataBaseCommandCopy;
 import com.nc.task1.model.impl.FileSystemCommandCopy;
 import com.nc.task1.model.impl.JDBCMysqlHandler;
@@ -39,8 +40,21 @@ public class CommandControllerCopy extends CommandController {
     protected void FactoryMethodInitCommands() {
         fileSystemCommand = new FileSystemCommandCopy(pathFrom, pathTo);
 
+        // Определяем объект файла, который перемещается
         File fileFrom = File.getFileByPath(pathFrom, null);
-        File fileTo = File.getFileByPath(pathTo, null);
+
+        // Определяем объект файла, куда перемещается путем клонирования и замены путей
+        File fileTo = null;
+        if (fileFrom != null) {
+            if (fileFrom instanceof Folder) {
+                fileTo = ((Folder) fileFrom).clone();
+            } else {
+                fileTo = fileFrom.clone();
+            }
+        }
+        if (fileTo != null) {
+            File.changeFilePathToByPathFrom(fileTo, pathFrom, pathTo, null);
+        }
         dataBaseCommand = new DataBaseCommandCopy(fileFrom, fileTo, dao);
     }
 }

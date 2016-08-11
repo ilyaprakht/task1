@@ -109,6 +109,7 @@ public class File {
     /**
      * Возвращает объект файла или папки по пути
      * @param path - путь к файлу
+     * @param parentFolder - родительский каталог
      * @return - объект соответствующего файла
      */
     public static File getFileByPath(String path, File parentFolder) {
@@ -126,5 +127,34 @@ public class File {
             }
         }
         return null; // если файл не найден, возвращаем null - для случаев перемещения и копирования, валидация будет дальше
+    }
+
+    /**
+     * Меняет пути к файлам для новых файлов по структуре старых
+     * @param file - экземпляр объекта файла
+     * @param pathFrom - путь файла, откуда копируется
+     * @param pathTo - путь файла, куда копируется
+     */
+    public static void changeFilePathToByPathFrom(File file, String pathFrom, String pathTo, File parentFolder) {
+        // Меняем путь к файлу для нового файла в соответствии с путем в старом файле
+        file.setName(file.getName().replace(pathFrom, pathTo));
+        file.setId(0);
+        file.setParentFolder(parentFolder);
+
+        // Если это директория, то пробегаемся рекурсивно по всем ее подпапкам и файлам
+        if (file instanceof Folder) {
+            for (File childFile : ((Folder) file).getListChildFiles()) {
+                changeFilePathToByPathFrom(childFile, pathFrom, pathTo, file);
+            }
+        }
+    }
+
+    /**
+     * Переопределенный метод клонирования
+     * @return - склонированный объект
+     */
+    @Override
+    public File clone() {
+        return new File(name, parentFolder);
     }
 }

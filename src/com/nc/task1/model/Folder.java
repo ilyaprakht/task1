@@ -47,4 +47,15 @@ public class Folder extends File {
     public void setListChildFiles(ArrayList<File> listChildFiles) {
         this.listChildFiles = listChildFiles;
     }
+
+    /**
+     * Переопределенный метод клонирования
+     * @return - склонированный объект
+     */
+    @Override
+    public Folder clone() {
+        Folder newFolder =  new Folder(name, parentFolder);
+        newFolder.setListChildFiles(listChildFiles);
+        return newFolder;
+    }
 }

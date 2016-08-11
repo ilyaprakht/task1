@@ -94,12 +94,31 @@ public class FileSystemCommandCopy implements FileSystemCommand {
     public void execute() throws FileSystemCommandException {
         System.out.println("execute cp in FS");
 
-        java.io.File hFileFrom = new java.io.File(pathFrom);
-        java.io.File hFileTo = new java.io.File(pathTo);
+        // Копируем рекурсивно файлы
+        copyFilesRec(pathFrom);
+    }
+
+    /**
+     * Рекурсивное копирование файлов
+     * @param path - путь к файлу, кеоторый нужно скопировать
+     * @throws FileSystemCommandException
+     */
+    private void copyFilesRec(String path) throws FileSystemCommandException {
+        java.io.File hFileFrom = new java.io.File(path);
+        java.io.File hFileTo = new java.io.File(path.replace(pathFrom, pathTo));
+
         try {
-            Files.copy(hFileFrom.toPath(), hFileTo.toPath(), ATOMIC_MOVE);
-        } catch (IOException e) {
-            throw new FileSystemCommandException("Невозможно скопировать файлы", pathFrom, pathTo);
+            // Копируем сам файл
+            Files.copy(hFileFrom.toPath(), hFileTo.toPath(), REPLACE_EXISTING);
+            // Если это директория, то рекурсивно пробегаемся по всем ее файлам и поддиректориям и копируем их
+            if (hFileFrom.isDirectory()) {
+                for (java.io.File childFile : hFileFrom.listFiles()) {
+                    copyFilesRec(childFile.getAbsolutePath());
+                }
+            }
+        }
+        catch (IOException e) {
+            throw new FileSystemCommandException("Невозможно скопировать файлы", hFileFrom.getAbsolutePath(), hFileTo.getAbsolutePath());
         }
     }
 }

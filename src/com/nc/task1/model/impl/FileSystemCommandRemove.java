@@ -65,6 +65,11 @@ public class FileSystemCommandRemove implements FileSystemCommand {
         deleteFilesRec(path);
     }
 
+    /**
+     * Рекурсивное удаление файлов
+     * @param path - путь к файлу
+     * @throws FileSystemCommandException
+     */
     private void deleteFilesRec(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);
         try {

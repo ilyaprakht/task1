@@ -117,7 +117,7 @@ public class JDBCMysqlHandler implements FileDAO {
     @Override
     public void create(File file) throws DataBaseCommandException {
         // Проверяем, есть ли данный файл уже в БД
-        if (existFile(file)) { // Еслиф файл уже есть, то новый не добавляем
+        if (existFile(file)) { // Если файл уже есть, то новый не добавляем
             return;
         }
 

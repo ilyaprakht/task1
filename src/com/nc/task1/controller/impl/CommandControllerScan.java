@@ -29,9 +29,13 @@ public class CommandControllerScan extends CommandController {
      */
     @Override
     protected void FactoryMethodInitCommands() {
+        // Создаем обработчик команды в ФС
         fileSystemCommand = new FileSystemCommandScan(path);
 
+        // Определяем объект файла
         File file = File.getFileByPath(path, null);
+
+        // Создаем обработчик команды в ФС
         dataBaseCommand = new DataBaseCommandScan(file, dao);
     }
 }

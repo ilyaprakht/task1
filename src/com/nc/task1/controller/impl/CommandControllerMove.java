@@ -2,6 +2,7 @@ package com.nc.task1.controller.impl;
 
 import com.nc.task1.controller.CommandController;
 import com.nc.task1.model.File;
+import com.nc.task1.model.Folder;
 import com.nc.task1.model.impl.DataBaseCommandMove;
 import com.nc.task1.model.impl.DataBaseCommandScan;
 import com.nc.task1.model.impl.FileSystemCommandMove;
@@ -36,10 +37,26 @@ public class CommandControllerMove extends CommandController {
      */
     @Override
     protected void FactoryMethodInitCommands() {
+        // Создаем обработчик команды в ФС
         fileSystemCommand = new FileSystemCommandMove(pathFrom, pathTo);
 
+        // Определяем объект файла, который перемещается
         File fileFrom = File.getFileByPath(pathFrom, null);
-        File fileTo = File.getFileByPath(pathTo, null);
+
+        // Определяем объект файла, куда перемещается путем клонирования и замены путей
+        File fileTo = null;
+        if (fileFrom != null) {
+            if (fileFrom instanceof Folder) {
+                fileTo = ((Folder) fileFrom).clone();
+            } else {
+                fileTo = fileFrom.clone();
+            }
+        }
+        if (fileTo != null) {
+            File.changeFilePathToByPathFrom(fileTo, pathFrom, pathTo, null);
+        }
+
+        // Создаем обработчки команды в БД
         dataBaseCommand = new DataBaseCommandMove(fileFrom, fileTo, dao);
     }
 }
