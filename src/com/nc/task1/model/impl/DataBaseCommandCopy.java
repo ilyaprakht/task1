@@ -58,7 +58,7 @@ public class DataBaseCommandCopy implements DataBaseCommand {
     /**
      * Выполнение команды на стороне базы данных
      */
-    public void execute() {
+    public void execute() throws DataBaseCommandException {
         System.out.println("execute cp in DB");
 
         // Записываем файлы в БД рекурсивно

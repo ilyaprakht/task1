@@ -44,7 +44,7 @@ public class DataBaseCommandRemove implements DataBaseCommand {
     /**
      * Выполнение команды на стороне базы данных
      */
-    public void execute() {
+    public void execute() throws DataBaseCommandException {
         System.out.println("execute rm in DB");
 
         // Удаляем файл из БД

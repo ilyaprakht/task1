@@ -2,6 +2,8 @@ package com.nc.task1.model.impl;
 
 import com.nc.task1.model.*;
 
+import java.sql.SQLException;
+
 /**
  * Created by ilpr0816 on 09.08.2016.
  * Реализация интерфейса DataBaseCommand для команды scan
@@ -37,7 +39,7 @@ public class DataBaseCommandScan implements DataBaseCommand {
     /**
      * Выполнение команды на стороне базы данных
      */
-    public void execute() {
+    public void execute() throws DataBaseCommandException {
         System.out.println("execute scan in DB");
 
         // Очищаем текущую БД

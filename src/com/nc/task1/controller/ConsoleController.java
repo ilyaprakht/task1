@@ -68,7 +68,7 @@ public class ConsoleController {
                 System.out.println("file system error: " + e.getMessage() + " " + e.getPath1() + (e.getPath2() == null ? "" : " " + e.getPath2()));
             }
             catch (DataBaseCommandException e) { // Ошибка БД
-                System.out.println("database error: " + e.getMessage() + " " + e.getFile().getName());
+                System.out.println("database error: " + e.getMessage() + (e.getFile() == null ? "" : " " + e.getFile().getName()));
             }
         } while (!"exit".equals(commandLine)); // при вводе exit - выход из программы
     }

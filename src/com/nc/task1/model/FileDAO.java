@@ -1,5 +1,7 @@
 package com.nc.task1.model;
 
+import java.sql.SQLException;
+
 /**
  * Created by ilpr0816 on 10.08.2016.
  * Интерфейс для реализации DAO-доступа к БД файлов
@@ -9,7 +11,7 @@ public interface FileDAO {
     /**
      * Очистка содержимого всей БД
      */
-    public void truncateAll();
+    public void truncateAll() throws DataBaseCommandException;
 
     /**
      * Обновление атрибутов файла или папки
