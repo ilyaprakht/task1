@@ -59,6 +59,7 @@ public class ConsoleController extends AbstractController {
                         break;
                     case Command.COMMAND_PRINT:
                         OutDataBuffer.outData.append("command print action");
+                        controller = new CommandControllerPrint();
                         break;
                     case Command.COMMAND_EXIT:
                         OutDataBuffer.outData.append("exit program");

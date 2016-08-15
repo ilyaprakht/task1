@@ -276,4 +276,75 @@ public class JDBCMysqlHandler implements FileDAO {
         // Выполняем единственный запрос, поскольку в БД настроено каскадное удаление
         execute(query);
     }
+
+    /**
+     * Проверяет, есть ли записи в БД
+     * @return true, если записей нет, false, если записи есть
+     * @throws DataBaseCommandException
+     */
+    @Override
+    public boolean isEmpty() throws DataBaseCommandException {
+        // Формируем запрос
+        String query = "select count(f.id) + count(t.id) from t_folder f, t_file t";
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return (resultSet.getInt(0) == 0);
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Если ничего не нашли, возвращаем true
+        return true;
+    }
+
+    /**
+     * Получение головного файла
+     * @throws DataBaseCommandException
+     */
+    @Override
+    public File getHeadFile() throws DataBaseCommandException {
+        // Ищем файл в таблице t_file
+        // Формируем запрос
+        String query = "select f.id, f.name, f.link_folder from t_file f where f.link_folder is null";
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new File(resultSet.getInt("id"), resultSet.getString("name"), null);
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Ищем файл в таблице t_folder
+        // Формируем запрос
+        query = "select f.id, f.name, f.link_folder from t_folder f where f.link_folder is null";
+
+        // Выполняем запрос
+        resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            if (resultSet.next()) {
+                return new Folder(resultSet.getInt("id"), resultSet.getString("name"), null);
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Если файл не найден возвращаем null
+        return null;
+    }
 }

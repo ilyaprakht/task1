@@ -49,4 +49,17 @@ public interface FileDAO {
      * @throws DataBaseCommandException
      */
     public void delete(File file) throws DataBaseCommandException;
+
+    /**
+     * Проверяет, есть ли записи в БД
+     * @return true, если записей нет, false, если записи есть
+     * @throws DataBaseCommandException
+     */
+    public boolean isEmpty() throws DataBaseCommandException;
+
+    /**
+     * Получение головного файла
+     * @throws DataBaseCommandException
+     */
+    public File getHeadFile() throws DataBaseCommandException;
 }

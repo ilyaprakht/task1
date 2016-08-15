@@ -46,7 +46,7 @@ public abstract class CommandController {
      * Выполнение команды на стороне файловой системы
      * @throws FileSystemCommandException
      */
-    private void executeFileSystemCommand() throws FileSystemCommandException {
+    protected void executeFileSystemCommand() throws FileSystemCommandException {
         fileSystemCommand.validate();
         fileSystemCommand.execute();
     }
@@ -55,7 +55,7 @@ public abstract class CommandController {
      * Выполнение команды на стороне БД
      * @throws DataBaseCommandException
      */
-    private void executeDataBaseCommand() throws DataBaseCommandException {
+    protected void executeDataBaseCommand() throws DataBaseCommandException {
         dataBaseCommand.validate();
         dataBaseCommand.execute();
     }
