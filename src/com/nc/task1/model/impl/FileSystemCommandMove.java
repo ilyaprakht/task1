@@ -1,5 +1,6 @@
 package com.nc.task1.model.impl;
 
+import com.nc.task1.controller.OutDataBuffer;
 import com.nc.task1.model.FileSystemCommand;
 import com.nc.task1.model.FileSystemCommandException;
 
@@ -39,7 +40,7 @@ public class FileSystemCommandMove implements FileSystemCommand {
      */
     @Override
     public void validate() throws FileSystemCommandException {
-        System.out.println("validate mv in FS");
+        OutDataBuffer.outData.append("validate mv in FS");
 
         // Проверяем файл, который копируем
         java.io.File hFileFrom = new java.io.File(pathFrom);
@@ -101,7 +102,7 @@ public class FileSystemCommandMove implements FileSystemCommand {
      */
     @Override
     public void execute() throws FileSystemCommandException {
-        System.out.println("execute mv in FS");
+        OutDataBuffer.outData.append("execute mv in FS");
 
         java.io.File hFileFrom = new java.io.File(pathFrom);
         java.io.File hFileTo = new java.io.File(pathTo);

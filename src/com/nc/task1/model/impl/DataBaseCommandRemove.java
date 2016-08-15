@@ -1,5 +1,6 @@
 package com.nc.task1.model.impl;
 
+import com.nc.task1.controller.OutDataBuffer;
 import com.nc.task1.model.DataBaseCommand;
 import com.nc.task1.model.DataBaseCommandException;
 import com.nc.task1.model.File;
@@ -35,7 +36,7 @@ public class DataBaseCommandRemove implements DataBaseCommand {
      */
     @Override
     public void validate() throws DataBaseCommandException {
-        System.out.println("validate rm in DB");
+        OutDataBuffer.outData.append("validate rm in DB");
 
         // Проверяем, что файл есть в списке сканированных в БД
         if (!dao.existFile(file)) {
@@ -49,7 +50,7 @@ public class DataBaseCommandRemove implements DataBaseCommand {
      */
     @Override
     public void execute() throws DataBaseCommandException {
-        System.out.println("execute rm in DB");
+        OutDataBuffer.outData.append("execute rm in DB");
 
         // Удаляем файл из БД
         dao.delete(file);

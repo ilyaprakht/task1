@@ -1,5 +1,6 @@
 package com.nc.task1.model.impl;
 
+import com.nc.task1.controller.OutDataBuffer;
 import com.nc.task1.model.*;
 
 /**
@@ -32,7 +33,7 @@ public class DataBaseCommandScan implements DataBaseCommand {
      */
     @Override
     public void validate() throws DataBaseCommandException {
-        System.out.println("validate scan in DB");
+        OutDataBuffer.outData.append("validate scan in DB");
         // В текущей реализации никакая валидация на стороне БД при сканировании не выполняется
     }
 
@@ -42,7 +43,7 @@ public class DataBaseCommandScan implements DataBaseCommand {
      */
     @Override
     public void execute() throws DataBaseCommandException {
-        System.out.println("execute scan in DB");
+        OutDataBuffer.outData.append("execute scan in DB");
 
         // Очищаем текущую БД
         dao.truncateAll();

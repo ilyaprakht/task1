@@ -1,6 +1,6 @@
-package com.nc.task1.controller;
+package com.nc.task1.controller.impl;
 
-import com.nc.task1.controller.impl.*;
+import com.nc.task1.controller.*;
 import com.nc.task1.model.DataBaseCommandException;
 import com.nc.task1.model.FileSystemCommandException;
 import com.nc.task1.view.impl.ConsoleView;
@@ -27,7 +27,9 @@ public class ConsoleController extends AbstractController {
     @Override
     public void run() {
         ConsoleCommand command = null;
-        OutData outData = new OutData();
+
+        // Создаем буфер вывода
+        OutDataBuffer.reset();
 
         do {
             try {
@@ -40,52 +42,52 @@ public class ConsoleController extends AbstractController {
                 // Определение соответствующего контроллера для команды
                 switch (command.getCommandType()) {
                     case Command.COMMAND_SCAN:
-                        outData.append("command scan action");
+                        OutDataBuffer.outData.append("command scan action");
                         controller = new CommandControllerScan(command.getPath1());
                         break;
                     case Command.COMMAND_MOVE:
-                        outData.append("command move action");
+                        OutDataBuffer.outData.append("command move action");
                         controller = new CommandControllerMove(command.getPath1(), command.getPath2());
                         break;
                     case Command.COMMAND_COPY:
-                        outData.append("command copy action");
+                        OutDataBuffer.outData.append("command copy action");
                         controller = new CommandControllerCopy(command.getPath1(), command.getPath2());
                         break;
                     case Command.COMMAND_REMOVE:
-                        outData.append("command remove action");
+                        OutDataBuffer.outData.append("command remove action");
                         controller = new CommandControllerRemove(command.getPath1());
                         break;
                     case Command.COMMAND_PRINT:
-                        outData.append("command print action");
+                        OutDataBuffer.outData.append("command print action");
                         break;
                     case Command.COMMAND_EXIT:
-                        outData.append("exit program");
+                        OutDataBuffer.outData.append("exit program");
                         break;
                     default:
-                        outData.append("unknown command. please, try again");
+                        OutDataBuffer.outData.append("unknown command. please, try again");
                         break;
                 }
 
                 // Если контроллер определен, выполняем команду
                 if (controller != null) {
                     controller.executeCommand();
-                    outData.append("command done");
+                    OutDataBuffer.outData.append("command done");
                 }
 
                 // Выводим всю скопившуюся информацию в консоль
-                view.write(outData);
+                view.write(OutDataBuffer.outData);
             }
             catch (ArrayIndexOutOfBoundsException e) { //Некорректный формат команды, указано неверное количество литералов
-                outData.append("incorrect command format. please, try again");
+                OutDataBuffer.outData.append("incorrect command format. please, try again");
             }
             catch (FileSystemCommandException e) { //Ошибка файловой системы
-                outData.append("file system error: " + e.getMessage() + " " + e.getPath1() + (e.getPath2() == null ? "" : " " + e.getPath2()));
+                OutDataBuffer.outData.append("file system error: " + e.getMessage() + " " + e.getPath1() + (e.getPath2() == null ? "" : " " + e.getPath2()));
             }
             catch (DataBaseCommandException e) { // Ошибка БД
-                outData.append("database error: " + e.getMessage() + (e.getFile() == null ? "" : " " + e.getFile().getName()));
+                OutDataBuffer.outData.append("database error: " + e.getMessage() + (e.getFile() == null ? "" : " " + e.getFile().getName()));
             }
             catch (Exception e) { // Не ожидаемая ошибка
-                outData.append("unknown error. exit program: " + e.getMessage());
+                OutDataBuffer.outData.append("unknown error. exit program: " + e.getMessage());
                 break;
             }
         } while (!command.getCommandType().equals(Command.COMMAND_EXIT)); // при вводе exit - выход из программы

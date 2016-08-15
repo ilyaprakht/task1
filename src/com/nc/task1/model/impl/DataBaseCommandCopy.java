@@ -1,5 +1,6 @@
 package com.nc.task1.model.impl;
 
+import com.nc.task1.controller.OutDataBuffer;
 import com.nc.task1.model.*;
 
 /**
@@ -39,7 +40,7 @@ public class DataBaseCommandCopy implements DataBaseCommand {
      */
     @Override
     public void validate() throws DataBaseCommandException {
-        System.out.println("validate cp in DB");
+        OutDataBuffer.outData.append("validate cp in DB");
 
         // Проверяем, что файл, откуда выполняется копирование, есть в списке сканированных в БД
         if (!dao.existFile(fileFrom)) {
@@ -62,7 +63,7 @@ public class DataBaseCommandCopy implements DataBaseCommand {
      */
     @Override
     public void execute() throws DataBaseCommandException {
-        System.out.println("execute cp in DB");
+        OutDataBuffer.outData.append("execute cp in DB");
 
         // Записываем файлы в БД рекурсивно
         createFilesRec(fileTo);

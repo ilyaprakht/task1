@@ -1,5 +1,6 @@
 package com.nc.task1.model.impl;
 
+import com.nc.task1.controller.OutDataBuffer;
 import com.nc.task1.model.FileSystemCommand;
 import com.nc.task1.model.FileSystemCommandException;
 
@@ -27,7 +28,7 @@ public class FileSystemCommandScan implements FileSystemCommand {
      */
     @Override
     public void validate() throws FileSystemCommandException {
-        System.out.println("validate scan in FS");
+        OutDataBuffer.outData.append("validate scan in FS");
 
         java.io.File hFile = new java.io.File(path);
         // Проверяем что такой файл есть в ФС
@@ -67,7 +68,7 @@ public class FileSystemCommandScan implements FileSystemCommand {
      */
     @Override
     public void execute() throws FileSystemCommandException {
-        System.out.println("execute scan in FS");
+        OutDataBuffer.outData.append("execute scan in FS");
         // В текущей реализации никаких действий на стороне ФС при сканировании не выполняется
     }
 }

@@ -29,6 +29,13 @@ public class OutData {
     }
 
     /**
+     * Очистка массива строк
+     */
+    public void clear() {
+        data.clear();
+    }
+
+    /**
      * Геттер для массива строк
      * @return массив строк с данными
      */
