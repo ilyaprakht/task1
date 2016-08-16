@@ -50,11 +50,44 @@ public class DataBaseCommandPrint implements DataBaseCommand {
             throw new DataBaseCommandException("Некорректная модель данных в БД", null);
         }
 
-        // Если файл является папкой, то ищем все подпапки и вложенные файлы
-        if (headFile instanceof Folder) {
-            // TODO заполнение данных - рекурсивная функция
-        }
+        // Рекурсивно определяем всю структуру вложенности для головного файла
+        findChildFilesRec(headFile);
 
-        // TODO вывод данных - рекурсивная функция
+        // Рекурсивно выводим всю структуру вложенности для головного файла, соблюдая сдвиги
+        printChildFilesRec(headFile, "");
+    }
+
+    /**
+     * Рекурсивный поиск в БД вложенных файлов и папок
+     * @param file - родительский файл
+     * @throws DataBaseCommandException
+     */
+    private void findChildFilesRec(File file) throws DataBaseCommandException {
+        // Если файл является папкой, то ищем все подпапки и вложенные файлы
+        if (file instanceof Folder) {
+            // Получаем из БД список всех вложенных файлов и подпапок
+            ((Folder) file).setListChildFiles(dao.getChildFiles(file));
+            // Пробегаемся по полученному списку, ищем вложения следующего уровня
+            for (File childFile : ((Folder) file).getListChildFiles()) {
+                findChildFilesRec(childFile);
+            }
+        }
+    }
+
+    /**
+     * Рекурсивный вывод в буфер вложенных файлов и папок
+     * @param file - экземпляр File
+     * @param prefix - префикс - добавляет перед выводимой строкой для более наглядного форматирования
+     */
+    private void printChildFilesRec(File file, String prefix) {
+        // Выводим название файла в буфер
+        OutDataBuffer.outData.append(prefix + file.getName());
+
+        // Если файл является папкой, то ищем все подпапки и вложенные файлы
+        if (file instanceof Folder) {
+            for (File childFile : ((Folder) file).getListChildFiles()) {
+                printChildFilesRec(childFile, prefix + " ");
+            }
+        }
     }
 }

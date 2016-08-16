@@ -10,6 +10,7 @@ import com.nc.task1.model.Folder;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by ilpr0816 on 10.08.2016.
@@ -293,7 +294,7 @@ public class JDBCMysqlHandler implements FileDAO {
         // Проверяем, есть ли в запросе результат
         try {
             if (resultSet.next()) {
-                return (resultSet.getInt(0) == 0);
+                return (resultSet.getInt(1) == 0);
             }
         }
         catch (SQLException e) {
@@ -346,5 +347,55 @@ public class JDBCMysqlHandler implements FileDAO {
 
         // Если файл не найден возвращаем null
         return null;
+    }
+
+    /**
+     * Получение дочерних файлов
+     * @param parentFile - экземпляр File родительского файла
+     * @throws DataBaseCommandException
+     */
+    @Override
+    public ArrayList<File> getChildFiles(File parentFile) throws DataBaseCommandException {
+        // Создаем результирующий список
+        ArrayList<File> childFiles = new ArrayList<File>();
+
+        // Ищем файлы в таблице t_file
+        // Формируем запрос
+        String query = "select f.id, f.name, f.link_folder from t_file f where f.link_folder = " + parentFile.getId();
+
+        // Выполняем запрос
+        ResultSet resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            while (resultSet.next()) {
+                File file = new File(resultSet.getInt("id"), resultSet.getString("name"), parentFile);
+                childFiles.add(file);
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Ищем файлы в таблице t_folder
+        // Формируем запрос
+        query = "select f.id, f.name, f.link_folder from t_folder f where f.link_folder = " + parentFile.getId();
+
+        // Выполняем запрос
+        resultSet = executeQuery(query);
+
+        // Проверяем, есть ли в запросе результат
+        try {
+            while (resultSet.next()) {
+                Folder folder = new Folder(resultSet.getInt("id"), resultSet.getString("name"), parentFile);
+                childFiles.add(folder);
+            }
+        }
+        catch (SQLException e) {
+            throw new DataBaseCommandException(e.getMessage(), null);
+        }
+
+        // Возвращаем результат
+        return childFiles;
     }
 }

@@ -74,9 +74,6 @@ public class ConsoleController extends AbstractController {
                     controller.executeCommand();
                     OutDataBuffer.outData.append("command done");
                 }
-
-                // Выводим всю скопившуюся информацию в консоль
-                view.write(OutDataBuffer.outData);
             }
             catch (ArrayIndexOutOfBoundsException e) { //Некорректный формат команды, указано неверное количество литералов
                 OutDataBuffer.outData.append("incorrect command format. please, try again");
@@ -91,6 +88,9 @@ public class ConsoleController extends AbstractController {
                 OutDataBuffer.outData.append("unknown error. exit program: " + e.getMessage());
                 break;
             }
+
+            // Выводим всю скопившуюся информацию в консоль
+            view.write(OutDataBuffer.outData);
         } while (!command.getCommandType().equals(Command.COMMAND_EXIT)); // при вводе exit - выход из программы
     }
 }

@@ -1,5 +1,7 @@
 package com.nc.task1.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by ilpr0816 on 10.08.2016.
  * Интерфейс для реализации DAO-доступа к БД файлов
@@ -59,7 +61,15 @@ public interface FileDAO {
 
     /**
      * Получение головного файла
+     * @return экземпляр File для головного файла в выборке
      * @throws DataBaseCommandException
      */
     public File getHeadFile() throws DataBaseCommandException;
+
+    /**
+     * Получение дочерних файлов
+     * @param parentFile - экземпляр File родительского файла
+     * @throws DataBaseCommandException
+     */
+    public ArrayList<File> getChildFiles(File parentFile) throws DataBaseCommandException;
 }
