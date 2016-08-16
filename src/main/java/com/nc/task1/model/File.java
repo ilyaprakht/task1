@@ -55,7 +55,7 @@ public class File {
      * Сеттер для id записи в БД
      * @param id id записи в БД
      */
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -71,7 +71,7 @@ public class File {
      * Сеттер для названия файла
      * @param name - название файла
      */
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -93,8 +93,8 @@ public class File {
 
     /**
      * Определение пути к родительскому каталогу на основании пути файла
-     * @param file
-     * @return
+     * @param file - экземпляр файла
+     * @return путь к родительскому каталогу
      */
     public static String getParentFolderPath(File file) {
         int pos = file.getName().lastIndexOf("\\"); // для windows-путей

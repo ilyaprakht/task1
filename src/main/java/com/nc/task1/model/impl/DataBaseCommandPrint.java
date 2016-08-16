@@ -22,7 +22,6 @@ public class DataBaseCommandPrint implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void validate() throws DataBaseCommandException {
@@ -36,7 +35,6 @@ public class DataBaseCommandPrint implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void execute() throws DataBaseCommandException {
@@ -60,7 +58,6 @@ public class DataBaseCommandPrint implements DataBaseCommand {
     /**
      * Рекурсивный поиск в БД вложенных файлов и папок
      * @param file - родительский файл
-     * @throws DataBaseCommandException
      */
     private void findChildFilesRec(File file) throws DataBaseCommandException {
         // Если файл является папкой, то ищем все подпапки и вложенные файлы

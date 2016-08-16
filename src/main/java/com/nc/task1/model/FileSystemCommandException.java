@@ -46,26 +46,10 @@ public class FileSystemCommandException extends Exception {
     }
 
     /**
-     * Сеттер для пути 1
-     * @param path1 - путь 1 к файлу или каталогу
-     */
-    public void setPath1(String path1) {
-        this.path1 = path1;
-    }
-
-    /**
      * Геттер для пути 2
      * @return путь 2 к файлу или каталогу
      */
     public String getPath2() {
         return path2;
-    }
-
-    /**
-     * Сеттер для пути 2
-     * @param path2 - путь 2 к файлу или каталогу
-     */
-    public void setPath2(String path2) {
-        this.path2 = path2;
     }
 }

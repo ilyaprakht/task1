@@ -7,13 +7,11 @@ package com.nc.task1.model;
 public interface DataBaseCommand {
     /**
      * Валидация команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
-    public void validate() throws DataBaseCommandException;
+    void validate() throws DataBaseCommandException;
 
     /**
      * Выполнение команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
-    public void execute() throws DataBaseCommandException;
+    void execute() throws DataBaseCommandException;
 }

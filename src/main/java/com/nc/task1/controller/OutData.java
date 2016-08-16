@@ -16,8 +16,8 @@ public class OutData {
     /**
      * Конструктор
      */
-    public OutData() {
-        data = new ArrayList<String>();
+    OutData() {
+        data = new ArrayList<>();
     }
 
     /**

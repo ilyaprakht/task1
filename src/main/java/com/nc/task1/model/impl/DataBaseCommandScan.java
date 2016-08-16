@@ -29,7 +29,6 @@ public class DataBaseCommandScan implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void validate() throws DataBaseCommandException {
@@ -39,7 +38,6 @@ public class DataBaseCommandScan implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void execute() throws DataBaseCommandException {
@@ -55,7 +53,6 @@ public class DataBaseCommandScan implements DataBaseCommand {
     /**
      * Рекурсивное создание файлов
      * @param file - экземпляр файла
-     * @throws DataBaseCommandException
      */
     private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл

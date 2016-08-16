@@ -11,7 +11,7 @@ public class ConsoleCommand extends Command {
     /**
      * Входная строка команды из консоли
      */
-    String commandLine;
+    private String commandLine;
 
     /**
      * Конструктор
@@ -23,9 +23,8 @@ public class ConsoleCommand extends Command {
 
     /**
      * Обработка входящей из консоли строки команды
-     * @throws ArrayIndexOutOfBoundsException
      */
-    public void parseCommandLine() throws ArrayIndexOutOfBoundsException {
+    void parseCommandLine() throws ArrayIndexOutOfBoundsException {
         // Делим входную строку на литералы по пробелам
         String[] commandSplit = commandLine.split(" ");
 

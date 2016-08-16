@@ -24,7 +24,6 @@ public class FileSystemCommandScan implements FileSystemCommand {
 
     /**
      * Валидация команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void validate() throws FileSystemCommandException {
@@ -43,7 +42,6 @@ public class FileSystemCommandScan implements FileSystemCommand {
     /**
      * Валидация вложенного файла или папки
      * @param path - путь к файлу или папке
-     * @throws FileSystemCommandException
      */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
@@ -64,7 +62,6 @@ public class FileSystemCommandScan implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void execute() throws FileSystemCommandException {

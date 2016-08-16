@@ -36,7 +36,6 @@ public class FileSystemCommandCopy implements FileSystemCommand {
 
     /**
      * Валидация команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void validate() throws FileSystemCommandException {
@@ -77,7 +76,6 @@ public class FileSystemCommandCopy implements FileSystemCommand {
     /**
      * Валидация вложенного файла или папки
      * @param path - путь к файлу или папке
-     * @throws FileSystemCommandException
      */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
@@ -98,7 +96,6 @@ public class FileSystemCommandCopy implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void execute() throws FileSystemCommandException {
@@ -111,7 +108,6 @@ public class FileSystemCommandCopy implements FileSystemCommand {
     /**
      * Рекурсивное копирование файлов
      * @param path - путь к файлу, кеоторый нужно скопировать
-     * @throws FileSystemCommandException
      */
     private void copyFilesRec(String path) throws FileSystemCommandException {
         java.io.File hFileFrom = new java.io.File(path);

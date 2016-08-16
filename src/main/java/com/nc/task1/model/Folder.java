@@ -10,7 +10,7 @@ public class Folder extends File {
     /**
      * Список дочерних файлов
      */
-    protected ArrayList<File> listChildFiles;
+    private ArrayList<File> listChildFiles;
 
     /**
      * Конструктор для папки
@@ -20,7 +20,7 @@ public class Folder extends File {
      */
     public Folder(int id, String name, File parentFolder) {
         super(id, name, parentFolder);
-        listChildFiles = new ArrayList<File>();
+        listChildFiles = new ArrayList<>();
     }
 
     /**
@@ -28,9 +28,9 @@ public class Folder extends File {
      * @param name - название файла
      * @param parentFolder - родительская папка
      */
-    public Folder(String name, File parentFolder) {
+    Folder(String name, File parentFolder) {
         super(name, parentFolder);
-        listChildFiles = new ArrayList<File>();
+        listChildFiles = new ArrayList<>();
     }
 
     /**

@@ -26,7 +26,6 @@ public class FileSystemCommandRemove implements FileSystemCommand {
 
     /**
      * Валидация команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void validate() throws FileSystemCommandException {
@@ -45,7 +44,6 @@ public class FileSystemCommandRemove implements FileSystemCommand {
     /**
      * Валидация вложенного файла или папки
      * @param path - путь к файлу или папке
-     * @throws FileSystemCommandException
      */
     @Override
     public void validateChild(String path) throws FileSystemCommandException {
@@ -66,7 +64,6 @@ public class FileSystemCommandRemove implements FileSystemCommand {
 
     /**
      * Выполнение команды на стороне файловой системы
-     * @throws FileSystemCommandException
      */
     @Override
     public void execute() throws FileSystemCommandException {
@@ -79,7 +76,6 @@ public class FileSystemCommandRemove implements FileSystemCommand {
     /**
      * Рекурсивное удаление файлов
      * @param path - путь к файлу
-     * @throws FileSystemCommandException
      */
     private void deleteFilesRec(String path) throws FileSystemCommandException {
         java.io.File hFile = new java.io.File(path);

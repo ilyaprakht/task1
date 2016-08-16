@@ -32,7 +32,6 @@ public class DataBaseCommandRemove implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void validate() throws DataBaseCommandException {
@@ -46,7 +45,6 @@ public class DataBaseCommandRemove implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void execute() throws DataBaseCommandException {

@@ -13,7 +13,7 @@ public class OutDataBuffer {
     /**
      * Сброс и обновление буфера данных на вывод
      */
-    public static void reset() {
+    static void reset() {
         if (outData == null) { // Если буфер не создан, то создаем его
             outData = new OutData();
         } else { // Если буфер уже создан, то очищаем его

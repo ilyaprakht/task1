@@ -36,7 +36,6 @@ public class DataBaseCommandMove implements DataBaseCommand {
 
     /**
      * Валидация команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void validate() throws DataBaseCommandException {
@@ -50,7 +49,7 @@ public class DataBaseCommandMove implements DataBaseCommand {
         // Проверяем, что родительсий каталог для файла, куда выполняется копирование, есть в списке сканированных в БД
         File parentFile = dao.getFile(File.getParentFolderPath(fileTo));
         if (parentFile == null) {
-            throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", parentFile);
+            throw new DataBaseCommandException("Выбранный файл не был ранее сканирован", null);
         }
 
         // Сохраняем родительскую папку для файла, куда выполняется копирование
@@ -59,7 +58,6 @@ public class DataBaseCommandMove implements DataBaseCommand {
 
     /**
      * Выполнение команды на стороне базы данных
-     * @throws DataBaseCommandException
      */
     @Override
     public void execute() throws DataBaseCommandException {
@@ -75,7 +73,6 @@ public class DataBaseCommandMove implements DataBaseCommand {
     /**
      * Рекурсивное создание файлов
      * @param file - экземпляр файла
-     * @throws DataBaseCommandException
      */
     private void createFilesRec(File file) throws DataBaseCommandException {
         // Записываем файл
